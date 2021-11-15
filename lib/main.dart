@@ -6,8 +6,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,10 +22,37 @@ class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
+  final SnackBar _snack = const SnackBar(
+    content: Text("Snackbar in action"),
+    backgroundColor: Colors.blue,
+    duration: Duration(seconds: 5),
+  );
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Builder(
+          builder: (BuildContext context) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  RaisedButton(
+                      child: const Text('Launch'),
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(_snack);
+                      }
+                  ),
+                ],
+              ),
+            );
+          }
+      ),
+    );
   }
 }
